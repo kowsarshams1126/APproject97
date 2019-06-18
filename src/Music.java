@@ -1,8 +1,14 @@
 
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
+import org.omg.PortableServer.THREAD_POLICY_ID;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+
 
 public class Music {
     private String adress;
@@ -11,10 +17,16 @@ public class Music {
     private String Artist;
     private File music;
     private FileInputStream input=null;
+    Player player=null;
+    Thread t;
 
-    public Music(File music) throws IOException {
+
+
+    public Music(File music) throws IOException, JavaLayerException {
         this.music = music;
         this.metaData();
+        this.input=new FileInputStream(music);
+
     }
     private void metaData() throws IOException {
 
@@ -66,4 +78,28 @@ public class Music {
     public String getArtist() {
         return Artist;
     }
+
+    public void play() throws JavaLayerException {
+        player=new Player(input);
+        t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    player.play();
+                } catch (JavaLayerException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        t.start();
+    }
+
+
+    public void pause() throws JavaLayerException {
+        t.stop();
+
+    }
+
+
+
 }
