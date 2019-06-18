@@ -1,8 +1,12 @@
 
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.Mp3File;
+import com.mpatric.mp3agic.UnsupportedTagException;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import org.omg.PortableServer.THREAD_POLICY_ID;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,7 +15,7 @@ import java.io.IOException;
 
 
 public class Music {
-    private String adress;
+    private Mp3File mp3File;
     private String Title;
     private String album;
     private String Artist;
@@ -19,13 +23,17 @@ public class Music {
     private FileInputStream input=null;
     Player player=null;
     Thread t;
+    private int passedTime;
+    private int remainTime;
+    private int time;
 
 
 
-    public Music(File music) throws IOException, JavaLayerException {
+    public Music(File music) throws IOException, JavaLayerException, InvalidDataException, UnsupportedTagException {
         this.music = music;
         this.metaData();
         this.input=new FileInputStream(music);
+        this.mp3File=new Mp3File(music.getAbsolutePath());
 
     }
     private void metaData() throws IOException {
@@ -95,11 +103,24 @@ public class Music {
     }
 
 
+
     public void pause() throws JavaLayerException {
+
+
         t.stop();
 
     }
 
 
+    public int getPassedTime() {
+        return player.getPosition();
+    }
 
+    public int getRemainTime() {
+        return time-this.getPassedTime();
+    }
+
+    public int getTime() {
+        return ((int)mp3File.getLengthInMilliseconds())/1000;
+    }
 }
