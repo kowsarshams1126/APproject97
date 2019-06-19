@@ -11,8 +11,8 @@ public class ClientReciever extends Thread {
 	
 	public final static int SOCKET_PORT = 4444;
 	public final static String SERVER = "127.0.0.1";
-	public final static String FILE_TO_RECEIVED = "file-rec.txt";
-	public final static int FILE_SIZE = 50;
+	public final static String FILE_TO_RECEIVED = "yes.mp3";
+	public final static int FILE_SIZE = 10000000;
 	
 	  
 	public ClientReciever() {
@@ -33,28 +33,25 @@ public class ClientReciever extends Thread {
 	    	System.out.println("Connecting...");
 	    	byte [] mybytearray  = new byte [FILE_SIZE];
 	    	InputStream is = sock.getInputStream();
-	    	bytesRead = is.read(mybytearray,0,mybytearray.length);
+	    	bytesRead = is.read(mybytearray, 0, mybytearray.length);
 	    	current = bytesRead;
 	      
 	    	do {
-	         
 	    		bytesRead = is.read(mybytearray, current, (mybytearray.length-current));
 	    		if(bytesRead >= 0) 
 	    			current += bytesRead;
 	      
-	    	} while(bytesRead > -1);
+	    	} while(!(bytesRead <= 0));
 	    	
 	    	bos.write(mybytearray, 0 , current);
-	    	bos.flush();    
+	    	bos.flush();
 	    	System.out.println("File " + FILE_TO_RECEIVED + " downloaded (" + current + " bytes read)");
 	  
 	    } catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 	    	System.out.println("Client, Unknown host");
 			e.printStackTrace();
 		} catch (IOException e) {
 			System.out.println("Client, io");
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}    
 	}    
