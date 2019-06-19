@@ -1,3 +1,4 @@
+package Download;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,14 +11,22 @@ import java.net.Socket;
 
 public class ServerSender extends Thread {
 	public final static int SOCKET_PORT = 4444;
-	public final static String FILE_TO_SEND = "aha.mp3";
+	public String FILE_TO_SEND;
 	
 	
 
-	public ServerSender() {
+	public ServerSender(String name) {
 		super();
-		// TODO Auto-generated constructor stub
+		FILE_TO_SEND = name;
 	}
+
+	
+
+
+	public String getFILE_TO_SEND() {
+		return FILE_TO_SEND ;
+	}
+
 
 
 
