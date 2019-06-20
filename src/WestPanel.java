@@ -10,6 +10,7 @@ public class WestPanel extends JScrollPane {
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.fill = GridBagConstraints.VERTICAL;
         mainPanel.setLayout(ly);
+
         setViewportView(mainPanel);
         setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
@@ -18,20 +19,36 @@ public class WestPanel extends JScrollPane {
         JButton addMusic = new JButton("addMusic");
         mainPanel.add(addMusic , gbc);
 
-
         JPanel Library=new JPanel();
-        JButton jButton=new JButton("+");
-        Library.add(jButton,BorderLayout.EAST);
-        JTextField jTextField=new JTextField("Library");
-        Library.add(jTextField,BorderLayout.WEST);
+        JButton jButton=new JButton("Library");
+
+//        jButton.enable(false);
 
         gbc.gridx=0;
         gbc.gridy=1;
-        mainPanel.add(Library,gbc);
-        JButton PlayList=new JButton("PlayList");
+        mainPanel.add(jButton,gbc);
+
+        JButton Albums=new JButton("Alubms");
         gbc.gridx=0;
         gbc.gridy=2;
+        mainPanel.add(Albums,gbc);
+
+
+        JButton Songs=new JButton("Songs");
+        gbc.gridx=0;
+        gbc.gridy=3;
+        mainPanel.add(Songs,gbc);
+
+
+        JButton PlayList=new JButton("PlayList");
+        gbc.gridx=0;
+        gbc.gridy=4;
         mainPanel.add(PlayList,gbc);
+
+        JButton PlayList1=new JButton("PlayList11111");
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        mainPanel.add(PlayList1,gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipady = 0;       //reset to default
@@ -43,7 +60,6 @@ public class WestPanel extends JScrollPane {
         gbc.gridy = 3;
         JButton newPlayList = new JButton("newPlayList");
         mainPanel.add(newPlayList , gbc);
-
 
 
 
